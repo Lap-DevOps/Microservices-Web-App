@@ -19,7 +19,8 @@ RUN apk add --no-cache gcc musl-dev mariadb-connector-c-dev && \
 COPY . /app/
 
 # Command to run the Django development server on all available network interfaces
-CMD [ "python3", "-m" , "flask", "run"]
+CMD flask run --host 0.0.0.0
+
 
 # The -t flag is used to specify the name and optionally a tag to the image
 # Example build command: docker build -t your_image_name .

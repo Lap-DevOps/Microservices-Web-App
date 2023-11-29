@@ -1,8 +1,10 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import UniqueConstraint
-from flask_migrate import Migrate
+
+from produser import publish
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:root@db/main"
@@ -28,10 +30,11 @@ class ProductUser(db.Model):
 
 @app.route('/')
 def main():
+    publish(1, 2)
     return jsonify({
         'flask': "3.0 endpoint"
     })
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run()
