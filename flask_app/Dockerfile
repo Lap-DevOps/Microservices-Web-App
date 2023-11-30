@@ -19,7 +19,7 @@ RUN apk add --no-cache gcc musl-dev mariadb-connector-c-dev && \
 COPY . /app/
 
 # Command to run the Django development server on all available network interfaces
-CMD flask run --host 0.0.0.0
+
 
 
 # The -t flag is used to specify the name and optionally a tag to the image

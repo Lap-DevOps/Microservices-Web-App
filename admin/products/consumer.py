@@ -1,7 +1,7 @@
 import pika
 
 params = pika.ConnectionParameters(
-    host='localhost',
+    host='host.docker.internal',
     port=5672,
     virtual_host='/',
     credentials=pika.PlainCredentials('guest', 'guest')
@@ -18,10 +18,11 @@ def callback(ch, method, properties, body):
     print(f'Receive in admin: ', body)
 
 
-channel.basic_consume(queue='admin', on_message_callback=callback,)
+channel.basic_consume(queue='admin', on_message_callback=callback)
 
-print("Consuming")
+print("Consuming admin")
+print(channel.connection.channel())
 
 channel.start_consuming()
 
-channel.close()
+# channel.close()

@@ -4,10 +4,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: "flask run --host 0.0.0.0"
     ports:
       - 8001:5000
     volumes:
       - .:/app
+    depends_on:
+      - db
+  queue:
+    network_mode: "host"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: "python consumer.py"
     depends_on:
       - db
   db:
