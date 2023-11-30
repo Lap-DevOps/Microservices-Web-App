@@ -1,3 +1,5 @@
+import json
+
 import pika
 
 params = pika.ConnectionParameters(
@@ -15,4 +17,5 @@ channel.queue_declare(queue='main', durable=True)
 
 
 def publish(method, body):
-    channel.basic_publish(exchange='', routing_key='main', body=str(body))
+    properties = pika.BasicProperties(method)
+    channel.basic_publish(exchange='', routing_key='admin', body=json.dumps(body), properties=properties)

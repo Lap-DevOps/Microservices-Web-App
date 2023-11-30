@@ -5,14 +5,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: always
-    command: "python manage.py runserver 0.0.0.0:8000"
+#    restart: always
+    command: [ "dockerize", "-wait", "tcp://db:3306", "-timeout", "80s", "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+
     ports:
       - 8000:8000
     volumes:
       - .:/app
     depends_on:
       - db
+
   queue:
     network_mode: "host"
     build:
@@ -21,6 +23,8 @@ services:
     command: "python products/consumer.py"
     depends_on:
       - db
+    environment:
+      DJANGO_SETTINGS_MODULE: admin.settings
 
   db:
     image: mysql:8.2

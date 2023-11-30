@@ -5,7 +5,7 @@ import pika
 from main import Product, db, app
 
 params = pika.ConnectionParameters(
-    host='host.docker.internal',
+    host='docker.for.mac.localhost',
     port=5672,
     virtual_host='/',
     credentials=pika.PlainCredentials('guest', 'guest')
@@ -22,6 +22,7 @@ def callback(ch, method, properties, body):
     print(f'Receive in main: ')
     data = json.loads(body)
     print(data)
+    print(properties.content_type)
     if properties.content_type == 'product_created':
         with app.app_context():
             product = Product(id=data['id'], title=data['title'], image=data['image'])
@@ -51,4 +52,4 @@ print("Consuming")
 
 channel.start_consuming()
 
-# channel.close()
+channel.close()

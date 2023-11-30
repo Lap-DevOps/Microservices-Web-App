@@ -13,7 +13,7 @@ connection = pika.BlockingConnection(params)
 
 channel = connection.channel()
 
-# channel.queue_declare(queue='main', durable=True)
+channel.queue_declare(queue='main', durable=True)
 
 
 def publish(method, body):

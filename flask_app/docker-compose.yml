@@ -12,7 +12,7 @@ services:
     depends_on:
       - db
   queue:
-    network_mode: "host"
+#    network_mode: "host"
     build:
       context: .
       dockerfile: Dockerfile
