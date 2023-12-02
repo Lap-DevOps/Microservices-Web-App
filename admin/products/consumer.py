@@ -7,10 +7,17 @@ import pika
 import sys
 sys.path.insert(0, '/app')
 
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "admin.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 django.setup()
 
-from admin.products.models import Product
+from django.apps import apps
+
+# Вывести список всех зарегистрированных моделей
+for model in apps.get_models():
+    print(model)
+
+
+from products.models import Product
 
 params = pika.ConnectionParameters(
     host='host.docker.internal',

@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import UniqueConstraint
 
-from flask_app.produser import publish
+from produser import publish
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:root@db/main"
@@ -19,6 +19,10 @@ CORS(app)
 
 @dataclass
 class Product(db.Model):
+    id: int
+    title: str
+    image: str
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=False)
     title = db.Column(db.String(200))
     image = db.Column(db.String(200))
@@ -39,8 +43,12 @@ def index():
 
 @app.route('/api/products/<int:id>/like', methods=['POST'])
 def like(id):
-    req = requests.get('http://docker.for.mac.localhost:8000/api/user')
+    # req = requests.get('http://docker.for.mac.localhost:8000/api/user')
+    req = requests.get('http://172.17.0.2:8000/api/user')
+
+    print(req)
     json = req.json()
+    print(json)
 
     try:
         productUser = ProductUser(user_id=json['id'], product_id=id)

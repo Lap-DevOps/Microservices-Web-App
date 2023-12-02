@@ -128,6 +128,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",  # Разрешить запросы от локального сервера разработки
-    "https://yourfrontenddomain.com",  # Замените на домен вашего фронтенда
+    "http://localhost:8000",
+    "https://yourfrontenddomain.com",
+    "http://0.0.0.0:8000",
+    'http://docker.for.mac.localhost:8000'
 ]
